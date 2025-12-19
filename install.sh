@@ -124,10 +124,10 @@ fi
 # ─────────────────────────────────────────────
 # PENTEST TOOLS
 # ─────────────────────────────────────────────
-sudo apt install -y \
-  nmap sqlmap hydra john \
-  wireshark tcpdump \
-  nikto gobuster
+# sudo apt install -y \
+#   nmap sqlmap hydra john \
+#   wireshark tcpdump \
+#   nikto gobuster
 
 # ─────────────────────────────────────────────
 # ALACRITTY
