@@ -7,7 +7,6 @@ sleep 2
 # ─────────────────────────────────────────────
 # VARIABLES
 # ─────────────────────────────────────────────
-GIT_NAME="git"
 DOTFILES_REPO="https://github.com/josepht273/config.git"
 ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
@@ -40,12 +39,10 @@ sudo usermod -aG docker "$USER"
 # OH MY ZSH
 # ─────────────────────────────────────────────
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "🔧 Installing Oh-My-Zsh..."
   RUNZSH=no sh -c \
     "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-# Plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions \
   "$ZSH_CUSTOM/plugins/zsh-autosuggestions" 2>/dev/null || true
 
@@ -58,20 +55,15 @@ git clone https://github.com/junegunn/fzf.git ~/.fzf 2>/dev/null || true
 # ─────────────────────────────────────────────
 # GO
 # ─────────────────────────────────────────────
-if ! command -v go &>/dev/null; then
-  echo "⬇️ Installing Go"
-  wget -q https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf go1.22.4.linux-amd64.tar.gz
-  rm go1.22.4.linux-amd64.tar.gz
-fi
+wget -q https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf go1.22.4.linux-amd64.tar.gz
+rm go1.22.4.linux-amd64.tar.gz
 
 # ─────────────────────────────────────────────
 # NODE / NVM / BUN / DENO
 # ─────────────────────────────────────────────
-if [ ! -d "$HOME/.nvm" ]; then
-  curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-fi
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
 export NVM_DIR="$HOME/.nvm"
 source "$NVM_DIR/nvm.sh"
@@ -83,51 +75,34 @@ curl -fsSL https://deno.land/install.sh | bash
 # ─────────────────────────────────────────────
 # RUST
 # ─────────────────────────────────────────────
-if ! command -v rustc &>/dev/null; then
-  curl https://sh.rustup.rs -sSf | sh -s -- -y
-fi
+curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 # ─────────────────────────────────────────────
 # ZIG (BUILD FROM SOURCE)
 # ─────────────────────────────────────────────
-# if ! command -v zig &>/dev/null; then
-#   echo "⬇️ Building Zig from source..."
-
-#   sudo apt install -y \
-#     llvm-dev clang lld \
-#     libclang-dev \
-#     ninja-build \
-#     libstdc++-12-dev
-
-#   ZIG_VERSION="0.12.0"
-#   cd /tmp
-
-#   git clone https://codeberg.org/ziglang/zig
-#   cd zig
-#   git checkout $ZIG_VERSION
-
-#   mkdir build && cd build
-#   cmake .. -G Ninja \
-#     -DCMAKE_BUILD_TYPE=Release \
-#     -DZIG_STATIC_LLVM=OFF
-
-#   ninja
-#   sudo cp zig /usr/local/bin/
-
-#   cd ~
-#   rm -rf /tmp/zig
-
-#   echo "✅ Zig built and installed from source"
-# fi
-
-
-# ─────────────────────────────────────────────
-# PENTEST TOOLS
-# ─────────────────────────────────────────────
 # sudo apt install -y \
-#   nmap sqlmap hydra john \
-#   wireshark tcpdump \
-#   nikto gobuster
+#   llvm-dev clang lld \
+#   libclang-dev \
+#   ninja-build \
+#   libstdc++-12-dev
+
+# ZIG_VERSION="0.12.0"
+# cd /tmp
+
+# git clone https://codeberg.org/ziglang/zig
+# cd zig
+# git checkout $ZIG_VERSION
+
+# mkdir build && cd build
+# cmake .. -G Ninja \
+#   -DCMAKE_BUILD_TYPE=Release \
+#   -DZIG_STATIC_LLVM=OFF
+
+# ninja
+# sudo cp zig /usr/local/bin/
+
+# cd ~
+# rm -rf /tmp/zig
 
 # ─────────────────────────────────────────────
 # ALACRITTY
@@ -141,14 +116,14 @@ mkdir -p ~/.config/alacritty
 curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/wezterm.gpg
 echo "deb [signed-by=/usr/share/keyrings/wezterm.gpg] https://apt.fury.io/wez/ * *" \
   | sudo tee /etc/apt/sources.list.d/wezterm.list
-sudo apt update && sudo apt install -y wezterm
+
+sudo apt update
+sudo apt install -y wezterm
 
 # ─────────────────────────────────────────────
 # DOTFILES
 # ─────────────────────────────────────────────
-if [ ! -d "$HOME/config" ]; then
-  git clone "$DOTFILES_REPO" "$HOME/config"
-fi
+git clone "$DOTFILES_REPO" "$HOME/config"
 
 cp -r "$HOME/config/." "$HOME/"
 mkdir -p ~/.config/zsh
@@ -162,9 +137,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm 2>/dev/null ||
 # ─────────────────────────────────────────────
 # DEFAULT SHELL
 # ─────────────────────────────────────────────
-if [ "$SHELL" != "$(which zsh)" ]; then
-  chsh -s "$(which zsh)"
-fi
+chsh -s "$(which zsh)"
 
 # ─────────────────────────────────────────────
 # CLEANUP
