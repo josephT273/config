@@ -90,35 +90,35 @@ fi
 # ─────────────────────────────────────────────
 # ZIG (BUILD FROM SOURCE)
 # ─────────────────────────────────────────────
-if ! command -v zig &>/dev/null; then
-  echo "⬇️ Building Zig from source..."
+# if ! command -v zig &>/dev/null; then
+#   echo "⬇️ Building Zig from source..."
 
-  sudo apt install -y \
-    llvm-dev clang lld \
-    libclang-dev \
-    ninja-build \
-    libstdc++-12-dev
+#   sudo apt install -y \
+#     llvm-dev clang lld \
+#     libclang-dev \
+#     ninja-build \
+#     libstdc++-12-dev
 
-  ZIG_VERSION="0.12.0"
-  cd /tmp
+#   ZIG_VERSION="0.12.0"
+#   cd /tmp
 
-  git clone https://codeberg.org/ziglang/zig
-  cd zig
-  git checkout $ZIG_VERSION
+#   git clone https://codeberg.org/ziglang/zig
+#   cd zig
+#   git checkout $ZIG_VERSION
 
-  mkdir build && cd build
-  cmake .. -G Ninja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DZIG_STATIC_LLVM=OFF
+#   mkdir build && cd build
+#   cmake .. -G Ninja \
+#     -DCMAKE_BUILD_TYPE=Release \
+#     -DZIG_STATIC_LLVM=OFF
 
-  ninja
-  sudo cp zig /usr/local/bin/
+#   ninja
+#   sudo cp zig /usr/local/bin/
 
-  cd ~
-  rm -rf /tmp/zig
+#   cd ~
+#   rm -rf /tmp/zig
 
-  echo "✅ Zig built and installed from source"
-fi
+#   echo "✅ Zig built and installed from source"
+# fi
 
 
 # ─────────────────────────────────────────────
