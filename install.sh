@@ -77,32 +77,6 @@ curl -fsSL https://deno.land/install.sh | bash
 # ─────────────────────────────────────────────
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 
-# ─────────────────────────────────────────────
-# ZIG (BUILD FROM SOURCE)
-# ─────────────────────────────────────────────
-# sudo apt install -y \
-#   llvm-dev clang lld \
-#   libclang-dev \
-#   ninja-build \
-#   libstdc++-12-dev
-
-# ZIG_VERSION="0.12.0"
-# cd /tmp
-
-# git clone https://codeberg.org/ziglang/zig
-# cd zig
-# git checkout $ZIG_VERSION
-
-# mkdir build && cd build
-# cmake .. -G Ninja \
-#   -DCMAKE_BUILD_TYPE=Release \
-#   -DZIG_STATIC_LLVM=OFF
-
-# ninja
-# sudo cp zig /usr/local/bin/
-
-# cd ~
-# rm -rf /tmp/zig
 
 # ─────────────────────────────────────────────
 # ALACRITTY
@@ -134,10 +108,12 @@ mkdir -p ~/.config/nvim
 # ─────────────────────────────────────────────
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm 2>/dev/null || true
 
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # ─────────────────────────────────────────────
 # DEFAULT SHELL
 # ─────────────────────────────────────────────
-chsh -s "$(which zsh)"
 
 # ─────────────────────────────────────────────
 # CLEANUP
