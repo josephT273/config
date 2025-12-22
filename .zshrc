@@ -42,7 +42,7 @@ export PATH=$HOME/futter/flutter/bin:/opt/AdGuardHome:$HOME/bin:$HOME/.local/bin
 export CXX=/usr/bin/gcc
 export CMAKE_CXX_COMPILER=/usr/bin/gcc
 # Path to your Oh My Zsh installation.
-export ZSH="$ZDOTDIR/ohmyzsh"
+export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/snap/bin:/usr/lib/snapd:$HOME/.local/share/swiftly/bin
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -78,9 +78,7 @@ export NVM_DIR="$HOME/.nvm"
 
 
 . "$NVM_DIR/nvm.sh"
-. "$HOME/.dart-cli-completion/zsh-config.zsh"
 . /etc/zsh_command_not_found
-. "$HOME/.local/bin/env"
 
 
 yt() {
@@ -115,8 +113,8 @@ alias vlang="$HOME/v/v"
 #alias vi='nvim'
 alias svi='sudo nvim'
 alias cls='clear'
-alias sr='source $HOME/.config/zsh/.zshrc'
-alias vz='vim $HOME/.config/zsh/.zshrc'
+alias sr='source $HOME/.zshrc'
+alias vz='vim $HOME/.zshrc'
 alias rustbook="rustup doc --book"
 # Git
 alias gs='git status'
