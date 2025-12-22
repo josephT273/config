@@ -2,7 +2,7 @@ local wezterm = require 'wezterm'
 
 return {
     -- Set PowerShell as default shell
-    default_prog = { 'pwsh.exe' },
+    default_prog = { 'zish' }, -- zellij
 
     -- Start in fullscreen mode with transparency
     initial_cols = 160,
