@@ -199,6 +199,7 @@ fi
 # ─────────────────────────────────────────────
 sudo apt autoremove -y
 sudo apt autoclean
+rm -rf .git install.sh
 
 echo "Installation complete"
 echo "Restart your terminal"
