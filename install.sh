@@ -121,6 +121,8 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 sudo apt autoremove -y
 sudo apt autoclean
 
+chsh -s $(command -v zsh)
+
 echo "Removing pre installed neovim"
 sudo apt remove neovim -y
 sleep 3
