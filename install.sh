@@ -121,5 +121,14 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 sudo apt autoremove -y
 sudo apt autoclean
 
+echo "Removing pre installed neovim"
+sudo apt remove neovim -y
+sleep 3
+
+echo "Install latest version of neovim"
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+sudo rm -rf /opt/nvim-linux-x86_64
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+
 echo "✅ Installation complete!"
 echo "👉 Log out and log back in to apply Zsh & Docker group changes"
