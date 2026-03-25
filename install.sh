@@ -8,6 +8,15 @@ DOTFILES_REPO="https://github.com/josepht273/config.git"
 ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
 # ─────────────────────────────────────────────
+# WSL DETECTION
+# ─────────────────────────────────────────────
+is_wsl=false
+if grep -qi "microsoft" /proc/version 2>/dev/null || [ -n "$WSL_DISTRO_NAME" ]; then
+  is_wsl=true
+  echo "[!] Running inside WSL"
+fi
+
+# ─────────────────────────────────────────────
 # HELPERS
 # ─────────────────────────────────────────────
 is_installed() {
@@ -47,16 +56,22 @@ packages=(
   nasm dosbox
   fonts-firacode
   trash-cli
-  alacritty
 )
 
 for pkg in "${packages[@]}"; do
   install_pkg "$pkg"
 done
 
+# GUI tools only if NOT WSL
+if [ "$is_wsl" = false ]; then
+  install_pkg alacritty
+else
+  echo "[=] Skipping Alacritty (WSL)"
+fi
+
 # Docker setup
 if ! groups "$USER" | grep -q docker; then
-  sudo systemctl enable --now docker
+  sudo systemctl enable --now docker || true
   sudo usermod -aG docker "$USER"
 fi
 
@@ -67,8 +82,6 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "[+] Installing Oh My Zsh"
   RUNZSH=no sh -c \
     "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-else
-  echo "[=] Oh My Zsh already installed"
 fi
 
 # Plugins
@@ -88,20 +101,16 @@ fi
 # GO
 # ─────────────────────────────────────────────
 if ! is_installed go; then
-  echo "[+] Installing Go"
   wget -q https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
   sudo rm -rf /usr/local/go
   sudo tar -C /usr/local -xzf go1.22.4.linux-amd64.tar.gz
   rm go1.22.4.linux-amd64.tar.gz
-else
-  echo "[=] Go already installed"
 fi
 
 # ─────────────────────────────────────────────
 # NODE / NVM / BUN / DENO
 # ─────────────────────────────────────────────
 if [ ! -d "$HOME/.nvm" ]; then
-  echo "[+] Installing NVM"
   curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 fi
 
@@ -119,24 +128,22 @@ is_installed deno || curl -fsSL https://deno.land/install.sh | bash
 # RUST
 # ─────────────────────────────────────────────
 if ! is_installed rustc; then
-  echo "[+] Installing Rust"
   curl https://sh.rustup.rs -sSf | sh -s -- -y
-else
-  echo "[=] Rust already installed"
 fi
 
 # ─────────────────────────────────────────────
-# WEZTERM
+# WEZTERM (skip on WSL)
 # ─────────────────────────────────────────────
-if ! is_installed wezterm; then
-  echo "[+] Installing WezTerm"
-  curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/wezterm.gpg
-  echo "deb [signed-by=/usr/share/keyrings/wezterm.gpg] https://apt.fury.io/wez/ * *" \
-    | sudo tee /etc/apt/sources.list.d/wezterm.list
-  sudo apt update
-  sudo apt install -y wezterm
+if [ "$is_wsl" = false ]; then
+  if ! is_installed wezterm; then
+    curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/wezterm.gpg
+    echo "deb [signed-by=/usr/share/keyrings/wezterm.gpg] https://apt.fury.io/wez/ * *" \
+      | sudo tee /etc/apt/sources.list.d/wezterm.list
+    sudo apt update
+    sudo apt install -y wezterm
+  fi
 else
-  echo "[=] WezTerm already installed"
+  echo "[=] Skipping WezTerm (WSL)"
 fi
 
 # ─────────────────────────────────────────────
@@ -145,8 +152,6 @@ fi
 if [ ! -d "$HOME/config" ]; then
   git clone "$DOTFILES_REPO" "$HOME/config"
   cp -r "$HOME/config/." "$HOME/"
-else
-  echo "[=] Dotfiles already present"
 fi
 
 mkdir -p ~/.config/zsh ~/.config/nvim
@@ -165,21 +170,28 @@ mkdir -p ~/.config/zsh ~/.config/nvim
 # NEOVIM (LATEST)
 # ─────────────────────────────────────────────
 if ! nvim --version | grep -q "NVIM v0.10"; then
-  echo "[+] Installing latest Neovim"
   sudo apt remove neovim -y || true
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
   sudo rm -rf /opt/nvim-linux-x86_64
   sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
   rm nvim-linux-x86_64.tar.gz
-else
-  echo "[=] Latest Neovim already installed"
 fi
 
 # ─────────────────────────────────────────────
-# SHELL
+# SHELL FIX (NO PAM ERROR)
 # ─────────────────────────────────────────────
-if [ "$SHELL" != "$(command -v zsh)" ]; then
-  chsh -s "$(command -v zsh)"
+if [ "$is_wsl" = false ]; then
+  if [ "$SHELL" != "$(command -v zsh)" ]; then
+    echo "[+] Changing default shell to zsh"
+    sudo chsh -s "$(command -v zsh)" "$USER"
+  fi
+else
+  echo "[=] Skipping chsh (WSL limitation)"
+
+  # fallback: auto-start zsh
+  if ! grep -q "exec zsh" ~/.bashrc; then
+    echo 'exec zsh' >> ~/.bashrc
+  fi
 fi
 
 # ─────────────────────────────────────────────
@@ -189,4 +201,4 @@ sudo apt autoremove -y
 sudo apt autoclean
 
 echo "Installation complete"
-echo "Log out and log back in to apply changes"
+echo "Restart your terminal"
