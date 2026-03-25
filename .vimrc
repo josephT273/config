@@ -71,17 +71,13 @@ Plug 'ziglang/zig.vim'           " Syntax highlighting, build, run, test
 " Rust
 Plug 'rust-lang/rust.vim'          " Syntax highlighting, Cargo commands
 Plug 'neoclide/coc.nvim', {'branch': 'release'}   " LSP / completion
-Plug 'fannheyward/coc-rust-analyzer'             " Rust language server
 
 " Java / Spring Boot
-Plug 'neoclide/coc.nvim', {'branch': 'release'}        " LSP / completion
-Plug 'neoclide/coc-java'                               " Java LSP
 Plug 'tpope/vim-sensible'                              " sensible defaults
 Plug 'sheerun/vim-polyglot'                            " syntax for many languages
 Plug 'majutsushi/tagbar'                                " tags navigation
 Plug 'vim-test/vim-test'                                " run tests
 Plug 'tpope/vim-dispatch'                               " async build/run
-Plug 'neoclide/coc-snippets'
 
 " --- Essentials ---
 Plug 'tpope/vim-sensible'
@@ -101,10 +97,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " --- LSP, Completion, Linting ---
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc-snippets'
-Plug 'neoclide/coc-tabnine'
 
 " --- Languages ---
 Plug 'udalov/kotlin-vim'
