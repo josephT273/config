@@ -90,6 +90,9 @@ Plug 'github/copilot.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'easymotion/vim-easymotion'
 
 " --- Git ---
@@ -124,6 +127,7 @@ Plug 'ap/vim-css-color'
 " --- Testing & Debugging ---
 Plug 'vim-test/vim-test'
 Plug 'puremourning/vimspector'
+Plug 'noahfrederick/vim-laravel'
 
 " --- Aesthetics ---
 Plug 'morhetz/gruvbox'
@@ -189,12 +193,16 @@ autocmd FileType asm call AssemblySyntax()
 " Key Mappings
 " =========================================================================
 let mapleader = " "
+set timeout
+set timeoutlen=400
+set ttimeoutlen=10
 
 " Movement and editing
 nnoremap <leader>\ ``
 nnoremap <silent> <leader>p :%w !lp<CR>
 inoremap jj <Esc>
-nnoremap <space> :
+nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <Space><Space> :Files<CR>
 nnoremap o o<esc>
 nnoremap O O<esc>
 nnoremap n nzz
@@ -296,9 +304,26 @@ augroup END
 " =========================================================================
 " FZF
 " =========================================================================
+if executable('fd')
+  let $FZF_DEFAULT_COMMAND = "fd --type f --hidden --follow --exclude .git"
+elseif executable('rg')
+  let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/*'"
+endif
+
+let g:fzf_layout = { 'window': { 'width': 0.94, 'height': 0.86 } }
+let g:fzf_preview_window = ['right,60%,border-left', 'ctrl-/']
+let $FZF_DEFAULT_OPTS = '--layout=default --info=inline --border --preview-window=right,60%,wrap'
+
 command! -bang -nargs=? Files
   \ call fzf#vim#files(
   \   systemlist('git rev-parse --show-toplevel 2>/dev/null || pwd')[0],
+  \   fzf#vim#with_preview(),
+  \   <bang>0)
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob "!.git/*" '.shellescape(<q-args>),
+  \   1,
   \   fzf#vim#with_preview(),
   \   <bang>0)
 
@@ -306,6 +331,16 @@ nnoremap <leader>f :Files<CR>
 nnoremap <leader>g :Rg<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>l :BLines<CR>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :Rg<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fh :Helptags<CR>
+
+" NERDTree as project file explorer
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeWinSize = 34
+let g:NERDTreeGitStatusWithFlags = 1
 
 " =========================================================================
 " UI / Colors
@@ -359,15 +394,56 @@ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 " Auto-install servers
 let g:coc_global_extensions = [
   \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-emmet',
+  \ 'coc-prettier',
+  \ 'coc-eslint',
   \ 'coc-tsserver',
   \ 'coc-java',
   \ 'coc-go',
-  \ 'coc-json',
+  \ '@yaegassy/coc-intelephense',
+  \ 'coc-rust-analyzer',
+  \ 'coc-phpls',
+  \ 'coc-vimlsp',
   \ 'coc-html',
   \ 'coc-css',
+  \ 'coc-json',
+  \ 'coc-yaml',
+  \ 'coc-xml',
+  \ 'coc-sh',
+  \ 'coc-docker',
+  \ 'coc-sql',
+  \ 'coc-tailwindcss',
+  \ 'coc-markdownlint',
+  \ 'coc-docker',
   \ 'coc-pyright',
   \ 'coc-clangd',
+  \ 'coc-lua',
   \ ]
+
+" =========================================================================
+" Testing workflow (works across full-stack + systems projects)
+" =========================================================================
+let g:test#strategy = 'dispatch'
+let g:test#preserve_screen = 1
+
+" Preferred runners by ecosystem
+let g:test#php#runner = 'phpunit'
+let g:test#javascript#runner = 'jest'
+let g:test#typescript#runner = 'jest'
+let g:test#python#runner = 'pytest'
+let g:test#go#runner = 'gotest'
+let g:test#rust#runner = 'cargotest'
+let g:test#java#runner = 'maventest'
+
+" Laravel / Pest / PHPUnit friendly
+let g:test#php#phpunit#file_pattern = '\v(tests?/.*(Test|Pest)\.php)$'
+
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
+nnoremap <silent> <leader>ts :TestSuite<CR>
+nnoremap <silent> <leader>tl :TestLast<CR>
+nnoremap <silent> <leader>tv :TestVisit<CR>
 
 " =========================================================================
 " Assembly 8086 Development Workflow
