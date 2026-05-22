@@ -1,0 +1,651 @@
+{
+  "disable_ai": true,
+  "theme": {
+    "mode": "dark",
+    "dark": "Cyberpunk Hacker Dark",
+    "light": "One Light"
+  },
+  "icon_theme": "Material Icon Theme",
+  "ui_font_family": "JetBrains Mono",
+  "ui_font_size": 12,
+  "ui_font_weight": 350,
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_size": 13,
+  "buffer_font_weight": 450,
+  "buffer_font_features": {
+    "calt": true,
+    "liga": true
+  },
+  "soft_wrap": "prefer_line",
+  "preferred_line_length": 100,
+  "terminal": {
+    "shell": {
+      "program": "zsh"
+    },
+    "blinking": "off",
+    "copy_on_select": true,
+    "option_as_meta": true,
+    "env": {
+      "TERM": "xterm-256color"
+    }
+  },
+  "base_keymap": "VSCode",
+  "project_panel": {
+    "dock": "left",
+    "folder_icons": true,
+    "file_icons": true,
+    "scrollbar": {
+      "show": "never"
+    },
+    "git_status": true
+  },
+  "tabs": {
+    "close_position": "right",
+    "file_icons": true,
+    "git_status": false
+  },
+  "toolbar": {
+    "breadcrumbs": true,
+    "quick_actions": false
+  },
+  "scrollbar": {
+    "show": "system",
+    "cursors": true,
+    "git_diff": true,
+    "diagnostics": "all"
+  },
+  "scroll_sensitivity": 1.0,
+  "vertical_scroll_margin": 4,
+  "show_completions_on_input": true,
+  "use_autoclose": true,
+  "use_auto_surround": true,
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true
+  },
+  "format_on_save": "on",
+  "formatter": "language_server",
+  "remove_trailing_whitespace_on_save": true,
+  "ensure_final_newline_on_save": true,
+  "indent_guides": {
+    "enabled": true,
+    "line_width": 1,
+    "coloring": "fixed",
+    "background_coloring": "disabled"
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": true,
+      "min_column": 80,
+      "delay_ms": 500
+    },
+    "git_gutter": "tracked_files"
+  },
+  // ─── Language Servers ─────────────────────────────────────────────────
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "checkOnSave": true,
+        "check": {
+          "command": "clippy"
+        },
+        "inlayHints": {
+          "bindingModeHints": {
+            "enable": true
+          },
+          "chainingHints": {
+            "enable": true
+          },
+          "closingBraceHints": {
+            "enable": true,
+            "minLines": 25
+          },
+          "closureCaptureHints": {
+            "enable": true
+          },
+          "closureReturnTypeHints": {
+            "enable": "always"
+          },
+          "discriminantHints": {
+            "enable": "always"
+          },
+          "expressionAdjustmentHints": {
+            "enable": "always"
+          },
+          "implicitDerefHints": {
+            "enable": "always"
+          },
+          "lifetimeElisionHints": {
+            "enable": "always",
+            "useParameterNames": true
+          },
+          "rangeExclusiveHints": {
+            "enable": true
+          },
+          "reborrowHints": {
+            "enable": "always"
+          },
+          "typeHints": {
+            "enable": true,
+            "hideNamedConstructor": false
+          }
+        },
+        "diagnostics": {
+          "disabled": [],
+          "enable": true,
+          "experimental": true,
+          "styleNotifications": true
+        },
+        "cargo": {
+          "allFeatures": true,
+          "buildScripts": {
+            "enable": true
+          },
+          "extraArgs": []
+        },
+        "completion": {
+          "autoimport": {
+            "enable": true
+          },
+          "addCallParenthesis": true,
+          "addCallArgumentSnippets": true,
+          "fullFunctionSignatures": {
+            "enable": true
+          }
+        },
+        "hover": {
+          "documentation": {
+            "enable": true,
+            "keywords": {
+              "enable": true
+            }
+          },
+          "links": {
+            "enable": true
+          }
+        },
+        "references": {
+          "includeDeclarations": true
+        },
+        "imports": {
+          "granularity": {
+            "group": "module"
+          },
+          "prefix": "self",
+          "merge": {
+            "glob": true,
+            "use": true
+          }
+        },
+        "interpret": {
+          "tests": true
+        },
+        "rustc": {
+          "source": "rust-analyzer"
+        },
+        "semanticHighlighting": true,
+        "files": {
+          "excludeDirs": [
+            "target",
+            ".git"
+          ]
+        },
+        "typo": {
+          "enabled": false
+        }
+      }
+    },
+    "clangd": {
+      "initialization_options": {
+        "clangd": {
+          "arguments": [
+            "--background-index",
+            "--clang-tidy",
+            "--clang-tidy-checks=performance-*,bugprone-*",
+            "--completion-style=detailed",
+            "--header-insertion=iwyu",
+            "--pch-storage=memory",
+            "--enable-config"
+          ]
+        }
+      }
+    },
+    "gopls": {
+      "initialization_options": {
+        "analyses": {
+          "unusedparams": true,
+          "unusedwrite": true,
+          "fieldalignment": true
+        },
+        "completeUnimported": true,
+        "staticcheck": true,
+        "matcher": "fuzzy",
+        "usePlaceholders": true,
+        "vulncheck": "Imports"
+      }
+    },
+    "zls": {
+      "initialization_options": {
+        "enable_inlay_hints": true,
+        "inlay_hints_show_building_block_literals": true,
+        "inlay_hints_exclude_single_argument": false,
+        "inlay_hints_hide_redundant_param_names": false,
+        "inlay_hints_hide_redundant_param_names_last_token": false,
+        "semantic_token_config": {
+          "enabled": true
+        }
+      }
+    },
+    "vtsls": {
+      "initialization_options": {
+        "typescript": {
+          "preferences": {
+            "includePackageJsonAutoImports": "on",
+            "autoImportFileExcludePatterns": [
+              "node_modules"
+            ],
+            "importModuleSpecifier": "shortest",
+            "quoteStyle": "single",
+            "importModuleSpecifierEnding": "auto",
+            "includeAutomaticOptionalChainCompletions": true,
+            "includeCompletionsForModuleExports": true,
+            "includeCompletionsWithInsertText": true,
+            "allowTextChangesInNewFiles": true,
+            "providePrefixAndSuffixTextForRename": true,
+            "renameShorthandProperties": true,
+            "useAliasesForRenames": true
+          },
+          "suggest": {
+            "completeFunctionCalls": true,
+            "includeCompletionsForImportStatements": true,
+            "includeAutomaticOptionalChainCompletions": true,
+            "autoImportSpecifier": "shortest"
+          },
+          "format": {
+            "semicolons": "insert",
+            "indentSize": 2,
+            "tabSize": 2,
+            "convertTabsToSpaces": true
+          },
+          "inlayHints": {
+            "parameterNames": {
+              "enabled": "literals"
+            },
+            "parameterTypes": {
+              "enabled": true
+            },
+            "variableTypes": {
+              "enabled": true
+            },
+            "propertyDeclarationTypes": {
+              "enabled": true
+            },
+            "functionLikeReturnTypes": {
+              "enabled": true
+            },
+            "enumMemberValues": {
+              "enabled": true
+            }
+          },
+          "implementationsCodeLens": {
+            "enabled": true
+          },
+          "referencesCodeLens": {
+            "enabled": true
+          }
+        },
+        "javascript": {
+          "preferences": {
+            "importModuleSpecifier": "shortest",
+            "quoteStyle": "single"
+          },
+          "suggest": {
+            "completeFunctionCalls": true,
+            "autoImportSpecifier": "shortest"
+          },
+          "inlayHints": {
+            "parameterNames": {
+              "enabled": "literals"
+            },
+            "parameterTypes": {
+              "enabled": true
+            },
+            "variableTypes": {
+              "enabled": true
+            },
+            "propertyDeclarationTypes": {
+              "enabled": true
+            },
+            "functionLikeReturnTypes": {
+              "enabled": true
+            }
+          }
+        }
+      }
+    },
+    "intelephense": {
+      "initialization_options": {
+        "files": {
+          "maxSize": 5000000,
+          "associations": [
+            "*.php",
+            "*.phtml"
+          ]
+        },
+        "php": {
+          "executablePath": "/usr/bin/php"
+        },
+        "diagnostics": {
+          "enable": true,
+          "run": "onSave"
+        },
+        "completion": {
+          "fullyQualifyGlobalConstantsAndFunctions": false,
+          "triggerParameterHints": true
+        },
+        "format": {
+          "enable": true
+        }
+      }
+    }
+  },
+  // ─── Language-Specific Settings ──────────────────────────────────────
+  "languages": {
+    "Rust": {
+      "tab_size": 4,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": "language_server",
+      "language_servers": [
+        "rust-analyzer"
+      ],
+      "show_edit_predictions": false,
+      "enable_language_server": true
+    },
+    "C": {
+      "tab_size": 4,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": "language_server",
+      "language_servers": [
+        "clangd"
+      ],
+      "show_edit_predictions": false,
+      "enable_language_server": true
+    },
+    "C++": {
+      "tab_size": 4,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": "language_server",
+      "language_servers": [
+        "clangd"
+      ],
+      "show_edit_predictions": false,
+      "enable_language_server": true
+    },
+    "Zig": {
+      "tab_size": 4,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": "language_server",
+      "language_servers": [
+        "zls"
+      ],
+      "show_edit_predictions": false,
+      "enable_language_server": true
+    },
+    "Odin": {
+      "tab_size": 4,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": "none",
+      "language_servers": [],
+      "show_edit_predictions": false,
+      "enable_language_server": false
+    },
+    "Go": {
+      "tab_size": 4,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": "language_server",
+      "language_servers": [
+        "gopls"
+      ],
+      "show_edit_predictions": false,
+      "enable_language_server": true,
+      "ensure_final_newline_on_save": true,
+      "remove_trailing_whitespace_on_save": true
+    },
+    "TypeScript": {
+      "tab_size": 2,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "language_servers": [
+        "vtsls"
+      ],
+      "show_edit_predictions": false,
+      "enable_language_server": true
+    },
+    "TSX": {
+      "tab_size": 2,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "language_servers": [
+        "vtsls"
+      ],
+      "show_edit_predictions": false,
+      "enable_language_server": true
+    },
+    "JavaScript": {
+      "tab_size": 2,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      },
+      "language_servers": [
+        "vtsls"
+      ],
+      "show_edit_predictions": false,
+      "enable_language_server": true
+    },
+    "PHP": {
+      "tab_size": 4,
+      "preferred_line_length": 100,
+      "format_on_save": "on",
+      "formatter": "language_server",
+      "language_servers": [
+        "intelephense"
+      ],
+      "show_edit_predictions": false,
+      "enable_language_server": true
+    },
+    "HTML": {
+      "tab_size": 2,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      }
+    },
+    "CSS": {
+      "tab_size": 2,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      }
+    },
+    "JSON": {
+      "tab_size": 2,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": [
+            "--stdin-filepath",
+            "{buffer_path}"
+          ]
+        }
+      }
+    },
+    "Markdown": {
+      "tab_size": 2,
+      "format_on_save": "off",
+      "preferred_line_length": 80,
+      "soft_wrap": "prefer_line"
+    },
+    "TOML": {
+      "tab_size": 2,
+      "format_on_save": "on"
+    },
+    "YAML": {
+      "tab_size": 2,
+      "format_on_save": "on"
+    }
+  },
+  "agent": {
+    "enabled": true,
+    "button": false
+  },
+  "auto_update": false,
+  "restore_on_startup": "last_session",
+  "confirm_quit": false,
+  "file_types": {
+    "C": [
+      "c",
+      "h"
+    ],
+    "C++": [
+      "cpp",
+      "cc",
+      "cxx",
+      "c++",
+      "hpp",
+      "hh",
+      "hxx",
+      "h++",
+      "ipp",
+      "tpp",
+      "tcc"
+    ],
+    "Go": [
+      "go"
+    ],
+    "Rust": [
+      "rs"
+    ],
+    "Zig": [
+      "zig"
+    ],
+    "Odin": [
+      "odin"
+    ],
+    "TypeScript": [
+      "ts",
+      "mts",
+      "cts"
+    ],
+    "TSX": [
+      "tsx"
+    ],
+    "JavaScript": [
+      "js",
+      "mjs",
+      "cjs"
+    ],
+    "JSX": [
+      "jsx"
+    ],
+    "PHP": [
+      "php",
+      "phtml"
+    ],
+    "Markdown": [
+      "md",
+      "mdx"
+    ],
+    "Python": [
+      "py",
+      "pyw"
+    ],
+    "Shell Script": [
+      "sh",
+      "bash",
+      "zsh"
+    ],
+    "TOML": [
+      "toml"
+    ],
+    "YAML": [
+      "yaml",
+      "yml"
+    ],
+    "JSON": [
+      "json",
+      "jsonc"
+    ]
+  },
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/node_modules",
+    "**/target",
+    "**/build",
+    "**/dist",
+    "**/.next",
+    "**/__pycache__",
+    "**/*.pyc",
+    "**/.pytest_cache",
+    "**/.gradle",
+    "**/vendor",
+    "**/.vendor",
+    "**/zig-cache",
+    "**/zig-out",
+    "**/.zig-cache",
+    "**/bazel-*",
+    "**/.cargo",
+    "**/.rustup"
+  ]
+}
