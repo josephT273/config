@@ -328,11 +328,10 @@ if ! nvim --version | grep -q "NVIM v0.10"; then
   sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
   rm nvim-linux-x86_64.tar.gz
   # required
-  mv ~/.config/nvim{,.bak}
-  # optional but recommended
-  mv ~/.local/share/nvim{,.bak}
-  mv ~/.local/state/nvim{,.bak}
-  mv ~/.cache/nvim{,.bak}
+  [ -d ~/.config/nvim ] && mv ~/.config/nvim ~/.config/nvim.bak
+  [ -d ~/.local/share/nvim ] && mv ~/.local/share/nvim ~/.local/share/nvim.bak
+  [ -d ~/.local/state/nvim ] && mv ~/.local/state/nvim ~/.local/state/nvim.bak
+  [ -d ~/.cache/nvim ] && mv ~/.cache/nvim ~/.cache/nvim.bak
 
   echo "Installing Lazyvim"
   git clone https://github.com/LazyVim/starter ~/.config/nvim
