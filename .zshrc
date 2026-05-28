@@ -1,5 +1,8 @@
-# if [ -f /usr/bin/fastfetch ]; then
-#	fastfetch
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
 # Add deno completions to search path
@@ -38,7 +41,7 @@ minifetch() {
   print "Have a great day! 🌟"
 }
 
-export PATH=$HOME/futter/flutter/bin:/opt/AdGuardHome:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.flutter/flutter/bin:/opt/AdGuardHome:$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 export CXX=/usr/bin/gcc
 export CMAKE_CXX_COMPILER=/usr/bin/gcc
 # Path to your Oh My Zsh installation.
@@ -57,7 +60,7 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR=nvim
 export VISUAL=nvim
 export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/intel_icd.x86_64.json
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bun/bin:$HOME/.pub-cache/bin:/opt/nvim-linux-x86_64/bin:$HOME/.config/herd-lite/bin:$HOME/fvm/versions/3.32.4/bin:$HOME/.fvm_flutter/bin:$PATH"
+export PATH="/opt/odin/:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.bun/bin:$HOME/.pub-cache/bin:/opt/nvim-linux-x86_64/bin:$HOME/.config/herd-lite/bin:$HOME/fvm/versions/3.32.4/bin:$HOME/.fvm_flutter/bin:$PATH"
 
 export GOROOT=$HOME/go/go
 export GOPATH=$HOME/go
@@ -459,3 +462,12 @@ export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.x86_64.json
 export ZED_ALLOW_EMULATED_GPU=1
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 eval "$(zoxide init zsh)"
+
+# opencode
+export PATH=/home/dash/.opencode/bin:$PATH
+
+# Source pentester aliases (added by code-oss-setup)
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true

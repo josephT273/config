@@ -1,37 +1,154 @@
-# .config/alacritty/alacritty.toml
-[shell]
+# ──────────────────────────────────────────────
+# Alacritty — Pentester Terminal Config
+# ──────────────────────────────────────────────
+# Tokyo Night Storm colors
+# JetBrains Mono Nerd Font
+# Optimized for: metasploit, burpsuite, ffuf, nmap,
+#                gobuster, rustscan, sqlmap, tmux
+# ──────────────────────────────────────────────
+
+[terminal.shell]
 program = "/bin/zsh"
 args = ["-l", "-c", "zellij"]
 
-[window]
-title = "Alacritty"
-decorations = "none"
-blur = true
-opacity = 0.9
-padding.x = 0
-padding.y = 0
-
-[window.dimensions]
-columns = 260
-lines = 120
-
-[cursor.style]
-shape= "Beam"
-blinking = "Never"
-
 [env]
 TERM = "xterm-256color"
+COLORTERM = "truecolor"
+
+[window]
+opacity = 0.88
+blur = true
+decorations = "None"
+padding = { x = 6, y = 6 }
+dynamic_padding = false
+title = "Pentest Terminal"
+dynamic_title = true
+startup_mode = "Maximized"
+# GTK theme variant: dark
+
+[scrolling]
+history = 50000
+multiplier = 3
 
 [font]
-#glyph_offset = { x = 1, y = 0 }
-normal.family = "MesloLGS Nerd Font Mono"
-normal.style = "Bold"
-size = 11.0
+size = 10.5
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
 
 [font.bold]
-family = "MesloLGS Nerd Font Mono"
+family = "JetBrainsMono Nerd Font"
 style = "Bold"
 
 [font.italic]
-family = "MesloLGS Nerd Font Mono"
+family = "JetBrainsMono Nerd Font"
 style = "Italic"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Bold Italic"
+
+[font.offset]
+x = 0
+y = 0
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+vi_mode_style = { shape = "Beam", blinking = "On" }
+blink_interval = 750
+blink_timeout = 5
+
+[mouse]
+hide_when_typing = true
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+save_to_clipboard = true
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.primary]
+background = "#1a1b26"
+foreground = "#a9b1d6"
+
+[colors.normal]
+black   = "#32344a"
+red     = "#f7768e"
+green   = "#9ece6a"
+yellow  = "#e0af68"
+blue    = "#7aa2f7"
+magenta = "#ad8ee6"
+cyan    = "#449dab"
+white   = "#787c99"
+
+[colors.bright]
+black   = "#444b6a"
+red     = "#ff7a93"
+green   = "#b9f27c"
+yellow  = "#ff9e64"
+blue    = "#7da6ff"
+magenta = "#bb9af7"
+cyan    = "#0db9d7"
+white   = "#acb0d0"
+
+[colors.dim]
+black   = "#32344a"
+red     = "#f7768e"
+green   = "#9ece6a"
+yellow  = "#e0af68"
+blue    = "#7aa2f7"
+magenta = "#ad8ee6"
+cyan    = "#449dab"
+white   = "#787c99"
+
+[colors.cursor]
+cursor = "#c0caf5"
+text = "#1a1b26"
+
+[colors.vi_mode_cursor]
+cursor = "#ff9e64"
+text = "#1a1b26"
+
+[colors.search]
+matches = { foreground = "#1a1b26", background = "#ff9e64" }
+focused_match = { foreground = "#1a1b26", background = "#9ece6a" }
+
+[colors.hints]
+start = { foreground = "#1a1b26", background = "#e0af68" }
+end = { foreground = "#e0af68", background = "#1a1b26" }
+
+[colors.line_indicator]
+foreground = "#565f89"
+background = "#1a1b26"
+
+[colors.footer_bar]
+foreground = "#1a1b26"
+background = "#565f89"
+
+[colors.selection]
+text = "#c0caf5"
+background = "#283457"
+
+[keyboard]
+bindings = [
+  { key = "V", mods = "Alt", action = "Paste" },
+  { key = "C", mods = "Alt", action = "Copy" },
+  { key = "N", mods = "Command", action = "SpawnNewInstance" },
+  { key = "Return", mods = "Alt", action = "ToggleFullscreen" },
+  { key = "K", mods = "Control|Shift", chars = "\\" },
+  # Quick tmux navigation
+  { key = "H", mods = "Alt", mode = "~Vi|~Search", action = "ReceiveChar" },
+  { key = "J", mods = "Alt", mode = "~Vi|~Search", action = "ReceiveChar" },
+  { key = "K", mods = "Alt", mode = "~Vi|~Search", action = "ReceiveChar" },
+  { key = "L", mods = "Alt", mode = "~Vi|~Search", action = "ReceiveChar" },
+]
+
+[debug]
+render_timer = false
+persistent_logging = false
+log_level = "Warn"
+
+[terminal]
+# Tokyo Night Storm specific terminal overrides
